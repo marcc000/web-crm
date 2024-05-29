@@ -2,25 +2,34 @@
 
 namespace App\Models;
 
-use App\Interfaces\Core;
+use App\Interfaces\Core\Address as IAddress;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Address extends Model implements Core\Address
+class Address extends Model implements IAddress
 {
     use HasFactory;
 
-    function getErpID() {
-
-
-    }
-
     /**
-     * 
+     * The table associated with the model.
+     *
+     * @var string
      */
-    function getFullAddress() {
-        
+    protected $table = 'address';
+
+    public function getErpID(): string {
+        return $this->erpID;
     }
 
+    public function getAddress(): string {
+        return $this->fullAddress;
+    }
 
+    public function getDescription(): string {
+        return $this->description;
+    }
+
+    public function isActive(): bool {
+        return $this->active;
+    }
 }
