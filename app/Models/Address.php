@@ -2,10 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Interfaces\Core;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Address extends Model
+class Address extends Model implements Core\Address
 {
     use HasFactory;
+
+    function getErpID() {
+
+
+    }
+
+    /**
+     * 
+     */
+    function getFullAddress() {
+        
+    }
+
+
 }

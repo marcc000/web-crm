@@ -11,7 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->id();
+            $table->string('erpID');
+            $table->string('fullAddress');
+            $table->string('description');
+            $table->boolean('active');
+            $table->integer('cap');
+            $table->integer('partner');
+            $table->timestamps();
+        });
     }
 
     /**
