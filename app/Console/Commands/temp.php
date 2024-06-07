@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Implementations\Erp\ErpConnectorImpl;
+use App\Jobs\ErpSync\FetchCategoryScopes;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use App\Jobs\ErpSync\FetchCategoryScopes;
-use App\Implementations\Erp\ErpConnectorImpl;
 
 class temp extends Command
 {
@@ -30,7 +30,7 @@ class temp extends Command
     {
         // $conn = new ErpConnectorImpl();
         // $conn->createProspect();
-        Log::debug("starting job");
+        Log::debug('starting job');
         $job = new FetchCategoryScopes();
         $job::dispatch();
     }

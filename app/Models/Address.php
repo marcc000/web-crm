@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Interfaces\Core\Address as IAddress;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model implements IAddress
 {
@@ -17,19 +17,23 @@ class Address extends Model implements IAddress
      */
     protected $table = 'address';
 
-    public function getErpID(): string {
+    public function getErpID(): string
+    {
         return $this->erpID;
     }
 
-    public function getAddress(): string {
+    public function getAddress(): string
+    {
         return $this->fullAddress;
     }
 
-    public function getDescription(): string {
+    public function getDescription(): string
+    {
         return $this->description;
     }
 
-    public function isActive(): bool {
+    public function isActive(): bool
+    {
         return $this->active;
     }
 }

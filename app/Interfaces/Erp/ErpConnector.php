@@ -11,5 +11,5 @@ interface ErpConnector
     /**
      * Creates a Prospect in the ERP
      */
-    function createProspect();
+    public function createProspect();
 }

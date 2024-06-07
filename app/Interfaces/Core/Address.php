@@ -11,21 +11,21 @@ interface Address
      * 3 digit unique string
      * relative to partner
      */
-    function getErpID(): string;
+    public function getErpID(): string;
 
     /**
      * Street name + number
      */
-    function getAddress(): string;
+    public function getAddress(): string;
 
     /**
      * Address description
      */
-    function getDescription(): string;
+    public function getDescription(): string;
 
     /**
      * True if address is active
      * False if disabled
      */
-    function isActive(): bool;
+    public function isActive(): bool;
 }
