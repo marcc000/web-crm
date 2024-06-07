@@ -94,19 +94,18 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'sqlsrv' => [
+        'erp' => [
             'driver' => 'sqlsrv',
-            'url' => env('DB_URL'),
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset' => env('DB_CHARSET', 'utf8'),
+            'host' => env('DB_HOST_ERP', 'localhost'),
+            'port' => env('DB_PORT_ERP', '1433'),
+            'database' => env('DB_DATABASE_ERP', 'laravel'),
+            'username' => env('DB_USERNAME_ERP', 'root'),
+            'password' => env('DB_PASSWORD_ERP', ''),
+            'charset' => env('DB_CHARSET_ERP', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
-            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+            'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'true'),
         ],
 
     ],

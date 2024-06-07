@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CategoryScope extends Model
 {
@@ -15,6 +16,17 @@ class CategoryScope extends Model
      * @var string
      */
     protected $table = 'category_scope';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'key',
+        'description',
+        'category_scope_id'
+    ];
 
     /**
      * Get the parent category scope.
