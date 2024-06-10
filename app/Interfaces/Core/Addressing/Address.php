@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Interfaces\Core;
+namespace App\Interfaces\Core\Addressing;
 
 /**
  * Represents a generic address

@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('customer', function (Blueprint $table) {
+            $table->id();
+            $table->boolean('active');
+            $table->boolean('exported');
+            $table->string('partner');
+            $table->string('delivery_address');
+            $table->timestamps();
+        });
     }
 
     /**

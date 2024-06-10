@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('category', function (Blueprint $table) {
+            $table->id();
+            $table->string('key');
+            $table->string('description')->nullable();
+            $table->integer('category_scope')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

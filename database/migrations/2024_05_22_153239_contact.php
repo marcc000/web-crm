@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('contact', function (Blueprint $table) {
+            $table->id();
+            $table->string('erpID');
+            $table->string('name');
+            $table->string('surname');
+            $table->timestamps();
+        });
     }
 
     /**
