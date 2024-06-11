@@ -62,7 +62,13 @@ class FetchCategoryScopes implements ShouldQueue
                 ['ZONE_0', 'LNGDES'],
             ])
             ->whereIn(
-                'IDENT1_0', ['23']
+                'IDENT1_0', [
+                    '30', //listino
+                    '31', //categ. merc.
+                    '32', //categ. vendita
+                    '33', //canale
+                    '34', //stagionalità
+                    ]
             );
 
         if($this->fetchMode == 'fresh') $query->where(
@@ -76,9 +82,12 @@ class FetchCategoryScopes implements ShouldQueue
         Log::debug('Fetched ' . $scopes->count() . ' records.');
 
         foreach ($scopes as $scope) {
-            CategoryScope::updateOrCreate(
-                ['key' => $scope->key],
-                ['description' => $scope->description,]
+            CategoryScope::upsert([
+                    'key' => $scope->key,
+                    'description' => $scope->description,
+                ],
+                [
+                    'key',]
             );
         }
     }
