@@ -50,6 +50,6 @@ class Category extends Model
      */
     public function getPriceLists()
     {
-        return Category::get()->where('key','30');
+        return Category::get()->where('key', '30');
     }
 }

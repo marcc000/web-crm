@@ -2,17 +2,13 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Category;
-use App\Models\Customer;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\CustomerResource\RelationManagers;
+use App\Models\Customer;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 
 class CustomerResource extends Resource
 {
@@ -24,19 +20,19 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-            Forms\Components\TextInput::make('partner.business_name')
-                ->required(),
-            Forms\Components\TextInput::make('partner.vat_number'),
-            Forms\Components\TextInput::make('partner.tax_id'),
-            Forms\Components\TextInput::make('agent'),
-            Forms\Components\TextInput::make('partner.default_address'),
-            Forms\Components\TextInput::make('default_contact'),
-            Forms\Components\Select::make('price_list'),
-            Forms\Components\TextInput::make('product_category'),
-            Forms\Components\TextInput::make('sales_category'),
-            Forms\Components\TextInput::make('channel'),
-            Forms\Components\TextInput::make('seasonality'),
-            Forms\Components\TextInput::make('payment_method'),
+                Forms\Components\TextInput::make('partner.business_name')
+                    ->required(),
+                Forms\Components\TextInput::make('partner.vat_number'),
+                Forms\Components\TextInput::make('partner.tax_id'),
+                Forms\Components\TextInput::make('agent'),
+                Forms\Components\TextInput::make('partner.default_address'),
+                Forms\Components\TextInput::make('default_contact'),
+                Forms\Components\Select::make('price_list'),
+                Forms\Components\TextInput::make('product_category'),
+                Forms\Components\TextInput::make('sales_category'),
+                Forms\Components\TextInput::make('channel'),
+                Forms\Components\TextInput::make('seasonality'),
+                Forms\Components\TextInput::make('payment_method'),
             ]);
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Interfaces\Core\Addressing;;
+namespace App\Interfaces\Core\Addressing;
 
 /**
  * Represents a generic CAP
@@ -10,10 +10,10 @@ interface Country
     /**
      * Unique code for countries
      */
-    function getCodeIso(): string;
+    public function getCodeIso(): string;
 
     /**
      * Country name
      */
-    function getName(): string;
+    public function getName(): string;
 }

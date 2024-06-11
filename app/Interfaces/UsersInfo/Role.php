@@ -7,10 +7,10 @@ namespace App\Interfaces\UsersInfo;
  */
 interface Role
 {
-    function getKey(): string;
+    public function getKey(): string;
 
     /**
      * Brief description about role
      */
-    function getDescription(): string;
+    public function getDescription(): string;
 }

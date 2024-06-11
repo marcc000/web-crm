@@ -10,6 +10,5 @@ interface Weekday
     /**
      * Name of the week
      */
-    function getName(): string;
-    
+    public function getName(): string;
 }
