@@ -9,7 +9,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('permission', function (Blueprint $table) {
+            $table->id();
+            $table->string('key');
+            $table->string('description');
+            $table->timestamps();
+        });
     }
 
     /**

@@ -9,7 +9,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('contact_info', function (Blueprint $table) {
+            $table->id();
+            $table->string('content');
+            $table->string('contact');
+            $table->string('category');
+            $table->timestamps();
+        });
     }
 
     /**

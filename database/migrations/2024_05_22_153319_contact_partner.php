@@ -9,7 +9,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('contact_partner', function (Blueprint $table) {
+            $table->id();
+            $table->string('partner');
+            $table->string('address');
+            $table->string('category');
+            $table->timestamps();
+        });
     }
 
     /**

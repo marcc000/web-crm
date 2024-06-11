@@ -9,7 +9,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('delivery_address', function (Blueprint $table) {
+            $table->id();
+            $table->string('instructions')->nullable();
+            $table->string('address');
+            $table->timestamps();
+        });
     }
 
     /**

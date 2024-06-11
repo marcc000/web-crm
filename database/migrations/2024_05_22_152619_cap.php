@@ -9,7 +9,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('cap', function (Blueprint $table) {
+            $table->id();
+            $table->string('key');
+            $table->string('city');
+            $table->string('province');
+            $table->timestamps();
+        });
     }
 
     /**

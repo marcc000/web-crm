@@ -9,7 +9,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('prospect', function (Blueprint $table) {
+            $table->id(); 
+            $table->string('partner');
+            $table->timestamps();
+        });
     }
 
     /**
