@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Interfaces\Core\Address as IAddress;
+use App\Interfaces\Core\Addressing\Address as IAddress;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
