@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('partner', function (Blueprint $table) {
             $table->id();
-            $table->string('erpID');
-            $table->string('businessName');
-            $table->string('taxID')->nullable();
+            $table->string('erp_id')->nullable();
+            $table->string('business_name');
+            $table->string('vat_number')->nullable();
+            $table->string('tax_id')->nullable();
             $table->string('PEC')->nullable();
-            $table->string('address');
-            $table->string('contact');
+            $table->string('default_address_id')->nullable();
+            $table->string('default_contact_id')->nullable();
             $table->timestamps();
         });
     }

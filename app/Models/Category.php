@@ -25,8 +25,8 @@ class Category extends Model
     protected $fillable = [
         'key',
         'description',
-        'category_scope_id',
-        'parent_category_id',
+        'category_scope',
+        'parent_category',
     ];
 
     /**

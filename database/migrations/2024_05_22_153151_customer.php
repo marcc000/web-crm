@@ -15,8 +15,14 @@ return new class extends Migration
             $table->id();
             $table->boolean('active');
             $table->boolean('exported');
-            $table->string('partner');
-            $table->string('delivery_address');
+            $table->string('price_list');
+            $table->string('product_category');
+            $table->string('sales_category');
+            $table->string('channel');
+            $table->string('seasonality');
+            $table->string('payment_method');
+            $table->string('partner_id');
+            $table->string('default_delivery_address_id');
             $table->timestamps();
         });
     }
