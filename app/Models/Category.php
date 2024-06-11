@@ -44,4 +44,12 @@ class Category extends Model
     {
         return $this->hasOne(Category::class);
     }
+
+    /**
+     * Get the price list options.
+     */
+    public function getPriceLists()
+    {
+        return Category::get()->where('key','30');
+    }
 }

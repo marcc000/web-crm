@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use App\Jobs\ErpSync\FetchCategories;
 use App\Jobs\ErpSync\FetchCategoryScopes;
 use App\Implementations\Erp\ErpConnectorImpl;
 
@@ -32,6 +33,8 @@ class temp extends Command
         // $conn = new ErpConnectorImpl();
         // $conn->createProspect
         $job = new FetchCategoryScopes();
+        $job::dispatch('all');
+        $job = new FetchCategories();
         $job::dispatch('all');
     }
 }
