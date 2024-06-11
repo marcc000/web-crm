@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CategoryScope extends Model
 {
@@ -25,14 +24,5 @@ class CategoryScope extends Model
     protected $fillable = [
         'key',
         'description',
-        'category_scope_id',
     ];
-
-    /**
-     * Get the parent category scope.
-     */
-    public function parentScope(): HasOne
-    {
-        return $this->hasOne(CategoryScope::class);
-    }
 }

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('key')->unique();
             $table->string('description')->nullable();
-            $table->string('category_scope_id')->nullable();
             $table->timestamps();
         });
     }

@@ -26,6 +26,7 @@ class Category extends Model
         'key',
         'description',
         'category_scope_id',
+        'parent_category_id',
     ];
 
     /**
@@ -34,5 +35,13 @@ class Category extends Model
     public function categoryScope(): HasOne
     {
         return $this->hasOne(CategoryScope::class);
+    }
+
+    /**
+     * Get the parent category.
+     */
+    public function parentCategory(): HasOne
+    {
+        return $this->hasOne(Category::class);
     }
 }
