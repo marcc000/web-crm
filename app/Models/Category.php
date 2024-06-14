@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Interfaces\Core\Category as ICategory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Category extends Model
+class Category extends Model implements ICategory
 {
     use HasFactory;
 
@@ -29,27 +30,53 @@ class Category extends Model
         'parent_category',
     ];
 
-    /**
-     * Get the category scope.
-     */
     public function categoryScope(): HasOne
     {
         return $this->hasOne(CategoryScope::class);
     }
 
-    /**
-     * Get the parent category.
-     */
     public function parentCategory(): HasOne
     {
         return $this->hasOne(Category::class);
     }
 
-    /**
-     * Get the price list options.
-     */
-    public function getPriceLists()
+    public function getKey() {
+        return $this->key;
+    }
+
+    public function getValue() {
+        return $this->description;
+    }
+
+    public function getScope() {
+        return $this->categoryScope();
+    }
+
+    public function getParent() {
+        return $this->parentCategory();
+    }
+
+    public static function getPriceLists() {
+        return Category::where('category_scope','30')->whereIn('key',['1','2','10']);
+    }
+
+    public static function getProductCategories()
     {
-        return Category::get()->where('key','30');
+        return Category::where('category_scope', '31');
+    }
+
+    public static function getSalesCategories()
+    {
+        return Category::where('category_scope', '32');
+    }
+
+    public static function getChannels()
+    {
+        return Category::where('category_scope', '33');
+    }
+
+    public static function getSeasonalities()
+    {
+        return Category::where('category_scope', '34');
     }
 }
