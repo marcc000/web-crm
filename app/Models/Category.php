@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Interfaces\Core\Category as ICategory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Category extends Model implements ICategory
 {
@@ -40,24 +40,29 @@ class Category extends Model implements ICategory
         return $this->hasOne(Category::class);
     }
 
-    public function getKey() {
+    public function getKey()
+    {
         return $this->key;
     }
 
-    public function getValue() {
+    public function getValue()
+    {
         return $this->description;
     }
 
-    public function getScope() {
+    public function getScope()
+    {
         return $this->categoryScope();
     }
 
-    public function getParent() {
+    public function getParent()
+    {
         return $this->parentCategory();
     }
 
-    public static function getPriceLists() {
-        return Category::where('category_scope','30')->whereIn('key',['1','2','10']);
+    public static function getPriceLists()
+    {
+        return Category::where('category_scope', '30')->whereIn('key', ['1', '2', '10']);
     }
 
     public static function getProductCategories()
