@@ -2,12 +2,10 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Support\Carbon;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
+use App\Implementations\Erp\ErpConnectorImpl;
 use App\Jobs\ErpSync\FetchCategories;
 use App\Jobs\ErpSync\FetchCategoryScopes;
-use App\Implementations\Erp\ErpConnectorImpl;
+use Illuminate\Console\Command;
 
 class temp extends Command
 {

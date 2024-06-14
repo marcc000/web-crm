@@ -11,6 +11,5 @@ interface AgentZone
      * 3 digit unique string
      * relative to partner
      */
-    function getErpID(): string;
-
+    public function getErpID(): string;
 }

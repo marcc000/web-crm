@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('category_scope');
             $table->string('parent_category')->nullable();
             $table->timestamps();
-            $table->unique(['key','category_scope']);
+            $table->unique(['key', 'category_scope']);
         });
     }
 

@@ -8,17 +8,17 @@ namespace App\Interfaces\UsersInfo;
 interface User
 {
     /**
-    * Username user
-    */
-    function getUsername(): string;
+     * Username user
+     */
+    public function getUsername(): string;
 
     /**
-    * Email user
-    */
-    function getEmail(): string;
+     * Email user
+     */
+    public function getEmail(): string;
 
     /**
-    * User password
-    */
-    function getPassword(): string;
+     * User password
+     */
+    public function getPassword(): string;
 }

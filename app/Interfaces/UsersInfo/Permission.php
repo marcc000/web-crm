@@ -7,10 +7,10 @@ namespace App\Interfaces\UsersInfo;
  */
 interface Permission
 {
-    function getKey(): string;
+    public function getKey(): string;
 
     /**
      * Information about the level of the permission
      */
-    function getDescription(): string;
+    public function getDescription(): string;
 }

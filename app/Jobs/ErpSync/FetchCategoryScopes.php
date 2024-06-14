@@ -4,13 +4,13 @@ namespace App\Jobs\ErpSync;
 
 use App\Models\CategoryScope;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 
 class FetchCategoryScopes implements ShouldQueue
 {
@@ -22,12 +22,14 @@ class FetchCategoryScopes implements ShouldQueue
      * @var int
      */
     public $tries = 1;
+
     /**
      * By default only fresh records are fetched,
      * a value different from 'fresh' will fetch
      * all records.
      */
     private $fetchMode;
+
     /**
      * Time offset of fresh records in minutes.
      */
@@ -35,10 +37,11 @@ class FetchCategoryScopes implements ShouldQueue
 
     /**
      * Create a new job instance.
-     * @param string $fetchMode
-     * 'fresh' to read only recently
-     * updated records,
-     * 'all' to read all records
+     *
+     * @param  string  $fetchMode
+     *                             'fresh' to read only recently
+     *                             updated records,
+     *                             'all' to read all records
      */
     public function __construct(string $fetchMode = 'fresh')
     {
@@ -68,26 +71,28 @@ class FetchCategoryScopes implements ShouldQueue
                     '32', //categ. vendita
                     '33', //canale
                     '34', //stagionalità
-                    ]
+                ]
             );
 
-        if($this->fetchMode == 'fresh') $query->where(
-            'UPDDATTIM_0', '>=', Carbon::now()->subMinutes($this->freshTimeOffset)->toDateTimeString()
-        );
+        if ($this->fetchMode == 'fresh') {
+            $query->where(
+                'UPDDATTIM_0', '>=', Carbon::now()->subMinutes($this->freshTimeOffset)->toDateTimeString()
+            );
+        }
 
-        Log::debug('Fetching Category Scopes with "' . $this->fetchMode . '" mode.');
+        Log::debug('Fetching Category Scopes with "'.$this->fetchMode.'" mode.');
 
         $scopes = $query->get();
 
-        Log::debug('Fetched ' . $scopes->count() . ' records.');
+        Log::debug('Fetched '.$scopes->count().' records.');
 
         foreach ($scopes as $scope) {
             CategoryScope::upsert([
-                    'key' => $scope->key,
-                    'description' => $scope->description,
-                ],
+                'key' => $scope->key,
+                'description' => $scope->description,
+            ],
                 [
-                    'key',]
+                    'key', ]
             );
         }
     }
