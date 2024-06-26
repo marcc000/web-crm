@@ -2,14 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CustomerResource\Pages;
+use Filament\Forms;
+use Filament\Tables;
 use App\Models\Category;
 use App\Models\Customer;
-use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
+use Pages\ListCustomers;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Filament\Resources\CustomerResource\Pages;
+use Filament\Resources\RelationManagers\RelationManager;
+use App\Filament\Resources\CustomerResource\RelationManagers;
 
 class CustomerResource extends Resource
 {
@@ -21,29 +24,36 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('partner.business_name')
+                Forms\Components\TextInput::make('business_name')
                     ->required(),
-                Forms\Components\TextInput::make('partner.vat_number'),
-                Forms\Components\TextInput::make('partner.tax_id'),
+                Forms\Components\TextInput::make('vat_number'),
+                Forms\Components\TextInput::make('tax_id'),
                 Forms\Components\TextInput::make('agent'),
-                Forms\Components\TextInput::make('partner.default_address'),
+                Forms\Components\Select::make('default_address')
+                    ->relationship(name: 'addresses', titleAttribute: 'description')
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('id')
+                            ->required(),
+                        Forms\Components\TextInput::make('description')
+                            ->required(),
+                    ]),
                 Forms\Components\TextInput::make('default_contact'),
                 Forms\Components\Select::make('price_list')
                     ->options(Category::getPriceLists()->pluck('description'))
-                    ->selectablePlaceholder(false),
+                    ->searchable(),
                 Forms\Components\Select::make('product_category')
                     ->options(Category::getProductCategories()->pluck('description'))
-                    ->selectablePlaceholder(false),
+                    ->searchable(),
                 Forms\Components\Select::make('sales_category')
                     ->options(Category::getSalesCategories()->pluck('description'))
-                    ->selectablePlaceholder(false),
+                    ->searchable(),
                 Forms\Components\Select::make('channel')
                     ->options(Category::getChannels()->pluck('description'))
-                    ->selectablePlaceholder(false),
+                    ->searchable(),
                 Forms\Components\Select::make('seasonality')
                     ->options(Category::getSeasonalities()->pluck('description'))
-                    ->selectablePlaceholder(false),
-                Forms\Components\TextInput::make('payment_method'),
+                    ->searchable(),
+                Forms\Components\Select::make('payment_method'),
             ]);
     }
 
@@ -69,7 +79,7 @@ class CustomerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\AddressesRelationManager::class,
         ];
     }
 
