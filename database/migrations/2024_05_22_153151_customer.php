@@ -13,16 +13,22 @@ return new class extends Migration
     {
         Schema::create('customer', function (Blueprint $table) {
             $table->id();
-            $table->boolean('active');
-            $table->boolean('exported');
-            $table->string('price_list');
-            $table->string('product_category');
-            $table->string('sales_category');
-            $table->string('channel');
-            $table->string('seasonality');
-            $table->string('payment_method');
-            $table->string('partner_id');
-            $table->string('default_delivery_address_id');
+            $table->string('erp_id')->nullable();
+            $table->string('business_name');
+            $table->string('vat_number')->nullable();
+            $table->string('tax_id')->nullable();
+            $table->string('PEC')->nullable();
+            $table->string('default_address_id')->nullable();
+            $table->string('default_contact_id')->nullable();
+            $table->boolean('active')->nullable();
+            $table->boolean('exported')->nullable();
+            $table->string('price_list')->nullable();
+            $table->string('product_category')->nullable();
+            $table->string('sales_category')->nullable();
+            $table->string('channel')->nullable();
+            $table->string('seasonality')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->string('default_delivery_address_id')->nullable();
             $table->timestamps();
         });
     }

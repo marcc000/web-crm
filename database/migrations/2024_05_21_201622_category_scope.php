@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('key')->unique();
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->unique(['key']);
         });
     }
 

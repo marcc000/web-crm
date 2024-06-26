@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->boolean('active');
             $table->integer('cap');
-            $table->integer('partner');
+            $table->integer('customer_id');
             $table->timestamps();
         });
     }
