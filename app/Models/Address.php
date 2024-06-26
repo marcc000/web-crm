@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Interfaces\Core\Addressing\Address as IAddress;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Address extends Model implements IAddress
+class Address extends Model
 {
     use HasFactory;
 
@@ -35,5 +35,13 @@ class Address extends Model implements IAddress
     public function isActive(): bool
     {
         return $this->active;
+    }
+
+    /**
+     * Get the owner of the address.
+     */
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

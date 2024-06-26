@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use App\Interfaces\Core\Category as ICategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Category extends Model implements ICategory
+class Category extends Model
 {
     use HasFactory;
 

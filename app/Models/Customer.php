@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Address;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Customer extends Model
 {
@@ -18,11 +20,44 @@ class Customer extends Model
     protected $table = 'customer';
 
     /**
-     * Get the partner.
+     * The attributes that are mass assignable.
+     *
+     * @var array
      */
-    public function partner(): HasOne
+    protected $fillable = [
+        'erp_id',
+        'business_name',
+        'vat_number',
+        'tax_id',
+        'PEC',
+        'default_address_id',
+        'default_contact_id',
+        'active',
+        'exported',
+        'price_list',
+        'product_category',
+        'sales_category',
+        'channel',
+        'seasonality',
+        'payment_method',
+        'partner_id',
+        'default_delivery_address_id',
+    ];
+
+    /**
+     * Get the main address.
+     */
+    public function mainAddress(): HasOne
     {
-        return $this->hasOne(Partner::class);
+        return $this->hasOne(Address::class);
+    }
+
+    /**
+     * Get all the addresses.
+     */
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
     }
 
     /**
@@ -31,5 +66,37 @@ class Customer extends Model
     public function defaultDeliveryAddress(): HasOne
     {
         return $this->hasOne(Address::class);
+    }
+
+    /**
+     * Get the sales channel.
+     */
+    public function channel(): HasOne
+    {
+        return $this->hasOne(Category::class, localKey: 'channel');
+    }
+
+    /**
+     * Get the seasonality.
+     */
+    public function seasonality(): HasOne
+    {
+        return $this->hasOne(Category::class, localKey: 'seasonality');
+    }
+
+    /**
+     * Get the product category.
+     */
+    public function productCategory(): HasOne
+    {
+        return $this->hasOne(Category::class,localKey: 'product_category');
+    }
+
+    /**
+     * Get the sales category.
+     */
+    public function salesCategory(): HasOne
+    {
+        return $this->hasOne(Category::class, localKey: 'sales_category');
     }
 }
