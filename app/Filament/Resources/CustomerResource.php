@@ -7,7 +7,6 @@ use Filament\Tables;
 use App\Models\Category;
 use App\Models\Customer;
 use Filament\Forms\Form;
-use Pages\ListCustomers;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use App\Filament\Resources\CustomerResource\Pages;

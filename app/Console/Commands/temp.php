@@ -2,10 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Implementations\Erp\ErpConnectorImpl;
+use Illuminate\Console\Command;
+use App\Jobs\ErpSync\FetchCountries;
 use App\Jobs\ErpSync\FetchCategories;
 use App\Jobs\ErpSync\FetchCategoryScopes;
-use Illuminate\Console\Command;
+use App\Implementations\Erp\ErpConnectorImpl;
 
 class temp extends Command
 {
@@ -28,11 +29,13 @@ class temp extends Command
      */
     public function handle()
     {
-        // $conn = new ErpConnectorImpl();
-        // $conn->createProspect
+        //$conn = new ErpConnectorImpl();
+        //$conn->testOrder();
         $job = new FetchCategoryScopes();
         $job::dispatch('all');
         $job = new FetchCategories();
+        $job::dispatch('all');
+        $job = new FetchCountries();
         $job::dispatch('all');
     }
 }
