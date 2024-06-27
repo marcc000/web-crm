@@ -17,6 +17,22 @@ class Address extends Model
      */
     protected $table = 'address';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'erpID',
+        'address',
+        'description',
+        'active',
+        'cap',
+        'province',
+        'country',
+        'customer_id',
+    ];
+
     public function getErpID(): string
     {
         return $this->erpID;
@@ -43,5 +59,29 @@ class Address extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * Get the postal info of the address.
+     */
+    public function cap(): HasOne
+    {
+        return $this->HasOne(Cap::class);
+    }
+
+    /**
+     * Get the province of the address.
+     */
+    public function province(): HasOne
+    {
+        return $this->HasOne(Province::class);
+    }
+
+    /**
+     * Get the country of the address.
+     */
+    public function country(): HasOne
+    {
+        return $this->HasOne(Country::class);
     }
 }

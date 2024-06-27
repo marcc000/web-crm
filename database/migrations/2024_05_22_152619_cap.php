@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('cap', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
-            $table->string('city');
+            $table->string('code');
             $table->string('province');
             $table->timestamps();
         });

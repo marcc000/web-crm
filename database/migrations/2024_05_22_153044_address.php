@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('address', function (Blueprint $table) {
             $table->id();
             $table->string('erpID');
-            $table->string('fullAddress');
+            $table->string('address');
             $table->string('description')->nullable();
             $table->boolean('active');
-            $table->integer('cap');
+            $table->string('cap');
+            $table->string('province');
+            $table->string('country');
             $table->integer('customer_id');
             $table->timestamps();
         });
