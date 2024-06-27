@@ -2,17 +2,15 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
+use App\Filament\Resources\CustomerResource\Pages;
+use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Models\Category;
 use App\Models\Customer;
+use Filament\Forms;
 use Filament\Forms\Form;
-use Pages\ListCustomers;
-use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use App\Filament\Resources\CustomerResource\Pages;
-use Filament\Resources\RelationManagers\RelationManager;
-use App\Filament\Resources\CustomerResource\RelationManagers;
+use Filament\Tables;
+use Filament\Tables\Table;
 
 class CustomerResource extends Resource
 {
