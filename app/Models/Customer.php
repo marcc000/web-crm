@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Address;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Customer extends Model
 {
@@ -89,7 +88,7 @@ class Customer extends Model
      */
     public function productCategory(): HasOne
     {
-        return $this->hasOne(Category::class,localKey: 'product_category');
+        return $this->hasOne(Category::class, localKey: 'product_category');
     }
 
     /**
