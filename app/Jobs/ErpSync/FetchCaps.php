@@ -2,8 +2,9 @@
 
 namespace App\Jobs\ErpSync;
 
-use App\Models\Country;
+use App\Models\Cap;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
@@ -11,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class FetchCountries implements ShouldQueue
+class FetchCaps implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -32,7 +33,7 @@ class FetchCountries implements ShouldQueue
     /**
      * Time offset of fresh records in minutes.
      */
-    private $freshTimeOffset = 120;
+    private $freshTimeOffset = 1440;
 
     /**
      * Create a new job instance.
@@ -54,39 +55,39 @@ class FetchCountries implements ShouldQueue
     public function handle(): void
     {
         $query = DB::connection('erp')
-            ->table('ATEXTRA')
+            ->table('POSCOD')
             ->select(
-                'IDENT1_0 as ISO',
-                'TEXTE_0 as name',
+                'POSCOD_0 as code',
+                'POSCTY_0 as city',
+                'SATCOD_0 as province',
             )
-            ->where([
-                ['CODFIC_0', 'TABCOUNTRY'],
-                ['LANGUE_0', 'ITA'],
-                ['ZONE_0', 'CRYDES'],
-            ])
-            ->whereIn(
-                'IDENT1_0',
-                [
-                    'IT', //Italia
-                    'SM', //San Marino
-                ]
+            ->where('CRY_0','IT');
+
+        if ($this->fetchMode == 'fresh') {
+            $query->where(
+                'UPDDATTIM_0',
+                '>=',
+                Carbon::now()->subMinutes($this->freshTimeOffset)->toDateTimeString()
             );
+        }
 
-        Log::debug('Fetching Countries with "'.$this->fetchMode.'" mode.');
+        Log::debug('Fetching Caps with "' . $this->fetchMode . '" mode.');
 
-        $countries = $query->get();
+        $caps = $query->get();
 
-        Log::debug('Fetched '.$countries->count().' records.');
+        Log::debug('Fetched ' . $caps->count() . ' records.');
 
-        foreach ($countries as $country) {
-            Country::upsert([
-                'ISO' => $country->ISO,
-                'name' => $country->name,
-            ],
+        foreach ($caps as $cap) {
+            Cap::upsert(
                 [
-                    'ISO', ]
+                    'code' => $cap->code,
+                    'city' => $cap->city,
+                    'province' => $cap->province,
+                ],
+                [
+                    'code',
+                ]
             );
         }
     }
 }
-

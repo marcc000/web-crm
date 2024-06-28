@@ -2,11 +2,10 @@
 
 namespace App\Implementations\Erp;
 
-use App\Interfaces\Erp\ErpConnector;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 use Spatie\ArrayToXml\ArrayToXml;
 
-class ErpConnectorImpl implements ErpConnector
+class ErpConnectorImpl
 {
     private SoapWrapper $soapWrapper;
 

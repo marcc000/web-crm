@@ -29,6 +29,6 @@ class Country extends Model
 
     public function provinces(): HasMany
     {
-        return $this->HasMany(Province::class);
+        return $this->HasMany(Province::class,'country','ISO');
     }
 }

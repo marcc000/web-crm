@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ErpSync\FetchCaps;
 use Illuminate\Console\Command;
 use App\Jobs\ErpSync\FetchCountries;
+use App\Jobs\ErpSync\FetchProvinces;
 use App\Jobs\ErpSync\FetchCategories;
 use App\Jobs\ErpSync\FetchCategoryScopes;
 use App\Implementations\Erp\ErpConnectorImpl;
@@ -36,6 +38,10 @@ class temp extends Command
         $job = new FetchCategories();
         $job::dispatch('all');
         $job = new FetchCountries();
+        $job::dispatch('all');
+        $job = new FetchProvinces();
+        $job::dispatch('all');
+        $job = new FetchCaps();
         $job::dispatch('all');
     }
 }

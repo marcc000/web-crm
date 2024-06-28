@@ -24,6 +24,7 @@ class Cap extends Model
      */
     protected $fillable = [
         'code',
+        'city',
         'province',
     ];
 
