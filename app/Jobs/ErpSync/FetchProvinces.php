@@ -3,15 +3,14 @@
 namespace App\Jobs\ErpSync;
 
 use App\Models\Province;
-use App\Models\CategoryScope;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 
 class FetchProvinces implements ShouldQueue
 {
@@ -75,11 +74,11 @@ class FetchProvinces implements ShouldQueue
             );
         }
 
-        Log::debug('Fetching Provinces with "' . $this->fetchMode . '" mode.');
+        Log::debug('Fetching Provinces with "'.$this->fetchMode.'" mode.');
 
         $provinces = $query->get();
 
-        Log::debug('Fetched ' . $provinces->count() . ' records.');
+        Log::debug('Fetched '.$provinces->count().' records.');
 
         foreach ($provinces as $province) {
             Province::upsert(

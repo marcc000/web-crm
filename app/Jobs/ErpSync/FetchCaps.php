@@ -4,13 +4,13 @@ namespace App\Jobs\ErpSync;
 
 use App\Models\Cap;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 
 class FetchCaps implements ShouldQueue
 {
@@ -61,7 +61,7 @@ class FetchCaps implements ShouldQueue
                 'POSCTY_0 as city',
                 'SATCOD_0 as province',
             )
-            ->where('CRY_0','IT');
+            ->where('CRY_0', 'IT');
 
         if ($this->fetchMode == 'fresh') {
             $query->where(
@@ -71,11 +71,11 @@ class FetchCaps implements ShouldQueue
             );
         }
 
-        Log::debug('Fetching Caps with "' . $this->fetchMode . '" mode.');
+        Log::debug('Fetching Caps with "'.$this->fetchMode.'" mode.');
 
         $caps = $query->get();
 
-        Log::debug('Fetched ' . $caps->count() . ' records.');
+        Log::debug('Fetched '.$caps->count().' records.');
 
         foreach ($caps as $cap) {
             Cap::upsert(
