@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Customer extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The table associated with the model.
@@ -52,11 +54,11 @@ class Customer extends Model
     }
 
     /**
-     * Get all the addresses.
+     * Get the postal info of the address.
      */
-    public function addresses(): HasMany
+    public function cap(): HasOne
     {
-        return $this->hasMany(Address::class);
+        return $this->HasOne(Cap::class);
     }
 
     /**

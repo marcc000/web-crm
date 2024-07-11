@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Address extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The table associated with the model.
@@ -27,7 +29,6 @@ class Address extends Model
         'erpID',
         'address',
         'description',
-        'active',
         'cap',
         'province',
         'country',
@@ -47,11 +48,6 @@ class Address extends Model
     public function getDescription(): string
     {
         return $this->description;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->active;
     }
 
     /**

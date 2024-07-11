@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('erpID');
             $table->string('address');
             $table->string('description')->nullable();
-            $table->boolean('active');
             $table->string('cap');
             $table->string('province');
             $table->string('country');
             $table->integer('customer_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

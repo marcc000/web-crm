@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('PEC')->nullable();
             $table->string('default_address_id')->nullable();
             $table->string('default_contact_id')->nullable();
-            $table->boolean('active')->nullable();
             $table->boolean('exported')->nullable();
             $table->string('price_list')->nullable();
             $table->string('product_category')->nullable();
@@ -30,6 +29,7 @@ return new class extends Migration
             $table->string('payment_method')->nullable();
             $table->string('default_delivery_address_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

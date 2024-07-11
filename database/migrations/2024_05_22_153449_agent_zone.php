@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('agent_zone', function (Blueprint $table) {
             $table->id();
-            $table->string('erpID');
-            $table->string('user');
+            $table->string('zone_id');
+            $table->string('agent_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
