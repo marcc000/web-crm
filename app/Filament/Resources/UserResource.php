@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\User;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Hash;
+use App\Filament\Resources\UserResource\Pages;
 
 class UserResource extends Resource
 {
@@ -28,10 +29,15 @@ class UserResource extends Resource
                     ->email()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
-                    ->required()
-                    ->password()
-                    ->revealable()
-                    ->maxLength(255),
+                    ->required(fn (string $context): bool => $context === 'create')
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->password(),
+                Forms\Components\TextInput::make('erp_id'),
+                Forms\Components\Select::make('roles')
+                    ->multiple()
+                    ->relationship('roles','name')
+                    ->preload(),
             ]);
     }
 
@@ -41,6 +47,10 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('email')->searchable(),
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->badge()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('erp_id')
             ])
             ->filters([
                 //
