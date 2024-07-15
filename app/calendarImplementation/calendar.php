@@ -3,7 +3,7 @@
 function boot()
 {
     Event::listen(function (MicrosoftGraphCallbackReceived $event) {
-        session()->put('microsoftgraph-access-data', $event->accessData); 
+        session()->put('microsoftgraph-access-data', $event->accessData);
     });
 }
 
