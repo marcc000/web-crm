@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cap', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
+            $table->string('code')->unique();
             $table->string('city');
             $table->string('province');
             $table->timestamps();
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('cap');
     }
 };

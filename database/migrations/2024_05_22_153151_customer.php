@@ -13,11 +13,23 @@ return new class extends Migration
     {
         Schema::create('customer', function (Blueprint $table) {
             $table->id();
-            $table->boolean('active');
-            $table->boolean('exported');
-            $table->string('partner');
-            $table->string('delivery_address');
+            $table->string('erp_id')->nullable();
+            $table->string('business_name');
+            $table->string('vat_number')->nullable();
+            $table->string('tax_id')->nullable();
+            $table->string('PEC')->nullable();
+            $table->string('default_address_id')->nullable();
+            $table->string('default_contact_id')->nullable();
+            $table->boolean('exported')->nullable();
+            $table->string('price_list')->nullable();
+            $table->string('product_category')->nullable();
+            $table->string('sales_category')->nullable();
+            $table->string('channel')->nullable();
+            $table->string('seasonality')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->string('default_delivery_address_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('customer');
     }
 };

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role', function (Blueprint $table) {
+        Schema::create('agent_zone', function (Blueprint $table) {
             $table->id();
-            $table->string('erpID');
-            $table->string('user');
+            $table->string('zone_id');
+            $table->string('agent_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('agent_zone');
     }
 };

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('category_scope', function (Blueprint $table) {
             $table->id();
+            $table->string('key')->unique();
             $table->string('description')->nullable();
-            $table->integer('category_scope')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('category_scope');
     }
 };

@@ -28,24 +28,12 @@ WEEKDAY_AVAILABILITY (
     FK day REFERENCES WEEKDAY.id
 )
 
-COUNTRY (
-    id int PK,
-    codeISO string,
-    name string
-)
-
-PROVINCE (
-    id int PK,
-    codeISO string,
-    name string,
-    FK country REFERENCES COUNTRY.id
-)
-
 CAP (
     id int PK,
     key string,
     city string,
-    FK province REFERENCES PROVINCE.id
+    province_name string,
+    provinceISO string,
 )
 
 ADDRESS (
