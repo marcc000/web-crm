@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Category extends Model
@@ -29,34 +30,14 @@ class Category extends Model
         'parent_category',
     ];
 
-    public function categoryScope(): HasOne
+    public function categoryScope(): BelongsTo
     {
-        return $this->hasOne(CategoryScope::class);
+        return $this->belongsTo(CategoryScope::class,'key','category_scope');
     }
 
     public function parentCategory(): HasOne
     {
-        return $this->hasOne(Category::class);
-    }
-
-    public function getKey()
-    {
-        return $this->key;
-    }
-
-    public function getValue()
-    {
-        return $this->description;
-    }
-
-    public function getScope()
-    {
-        return $this->categoryScope();
-    }
-
-    public function getParent()
-    {
-        return $this->parentCategory();
+        return $this->hasOne(Category::class,'key','parent_category');
     }
 
     public static function getPriceLists()

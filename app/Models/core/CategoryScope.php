@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CategoryScope extends Model
 {
@@ -25,4 +26,9 @@ class CategoryScope extends Model
         'key',
         'description',
     ];
+
+    public function categoryScope(): HasMany
+    {
+        return $this->hasMany(Category::class,'category_scope','key');
+    }
 }
