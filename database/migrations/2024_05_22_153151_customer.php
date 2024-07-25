@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('customer', function (Blueprint $table) {
             $table->id();
-            $table->string('erp_id')->nullable();
-            $table->string('business_name');
+            $table->string('erp_id')->nullable()->unique();
+            $table->string('business_name')->nullable();
             $table->string('vat_number')->nullable();
-            $table->string('tax_id')->nullable();
             $table->string('PEC')->nullable();
             $table->string('default_address_id')->nullable();
             $table->string('default_contact_id')->nullable();

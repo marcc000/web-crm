@@ -28,11 +28,9 @@ class Customer extends Model
         'erp_id',
         'business_name',
         'vat_number',
-        'tax_id',
         'PEC',
         'default_address_id',
         'default_contact_id',
-        'active',
         'exported',
         'price_list',
         'product_category',
@@ -40,7 +38,6 @@ class Customer extends Model
         'channel',
         'seasonality',
         'payment_method',
-        'partner_id',
         'default_delivery_address_id',
     ];
 
