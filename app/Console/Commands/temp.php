@@ -37,12 +37,12 @@ class temp extends Command
         //$conn->testOrder();
 
         Bus::chain([
-            //new FetchCategoryScopes('all'),
-            //new FetchCategories('all'),
+            new FetchCategoryScopes('all'),
+            new FetchCategories('all'),
             //new FetchCountries('all'),
             //new FetchProvinces('all'),
             //new FetchCaps('all'),
-            new FetchCustomers('all'),
+            //new FetchCustomers('all'),
         ])->dispatch();
     }
 }

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('business_name')->nullable();
             $table->string('vat_number')->nullable();
             $table->string('PEC')->nullable();
-            $table->string('default_address_id')->nullable();
-            $table->string('default_contact_id')->nullable();
+            $table->string('default_address')->nullable();
+            $table->string('default_contact')->nullable();
             $table->boolean('exported')->nullable();
             $table->string('price_list')->nullable();
             $table->string('product_category')->nullable();
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('channel')->nullable();
             $table->string('seasonality')->nullable();
             $table->string('payment_method')->nullable();
-            $table->string('default_delivery_address_id')->nullable();
+            $table->string('default_delivery_address')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
