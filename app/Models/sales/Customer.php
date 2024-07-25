@@ -29,8 +29,9 @@ class Customer extends Model
         'business_name',
         'vat_number',
         'PEC',
-        'default_address_id',
-        'default_contact_id',
+        'default_address',
+        'default_delivery_address',
+        'default_contact',
         'exported',
         'price_list',
         'product_category',
@@ -38,7 +39,6 @@ class Customer extends Model
         'channel',
         'seasonality',
         'payment_method',
-        'default_delivery_address_id',
     ];
 
     /**
@@ -47,14 +47,6 @@ class Customer extends Model
     public function mainAddress(): HasOne
     {
         return $this->hasOne(Address::class);
-    }
-
-    /**
-     * Get the postal info of the address.
-     */
-    public function cap(): HasOne
-    {
-        return $this->HasOne(Cap::class);
     }
 
     /**
