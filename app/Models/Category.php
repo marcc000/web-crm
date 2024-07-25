@@ -32,12 +32,12 @@ class Category extends Model
 
     public function categoryScope(): BelongsTo
     {
-        return $this->belongsTo(CategoryScope::class,'key','category_scope');
+        return $this->belongsTo(CategoryScope::class, 'key', 'category_scope');
     }
 
     public function parentCategory(): HasOne
     {
-        return $this->hasOne(Category::class,'key','parent_category');
+        return $this->hasOne(Category::class, 'key', 'parent_category');
     }
 
     public static function getPriceLists()

@@ -40,7 +40,7 @@ class Address extends Model
      */
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(Customer::class,'erp_id','erp_id');
+        return $this->belongsTo(Customer::class, 'erp_id', 'erp_id');
     }
 
     /**
@@ -48,7 +48,7 @@ class Address extends Model
      */
     public function cap(): HasOne
     {
-        return $this->HasOne(Cap::class,'code','cap');
+        return $this->HasOne(Cap::class, 'code', 'cap');
     }
 
     /**
@@ -56,7 +56,7 @@ class Address extends Model
      */
     public function province(): HasOne
     {
-        return $this->HasOne(Province::class,'ISO','province');
+        return $this->HasOne(Province::class, 'ISO', 'province');
     }
 
     /**
@@ -64,6 +64,6 @@ class Address extends Model
      */
     public function country(): HasOne
     {
-        return $this->HasOne(Country::class,'ISO','country');
+        return $this->HasOne(Country::class, 'ISO', 'country');
     }
 }

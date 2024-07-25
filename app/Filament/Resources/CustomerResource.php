@@ -2,16 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Category;
-use App\Models\Customer;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
+use App\Models\Category;
+use App\Models\Customer;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CustomerResource extends Resource
 {
@@ -24,14 +24,14 @@ class CustomerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Fieldset::make('Identity')
-                ->schema([
-                    Forms\Components\TextInput::make('erp_id')
-                        ->disabled(),
-                    Forms\Components\TextInput::make('business_name')
-                        ->required(),
-                    Forms\Components\TextInput::make('vat_number'),
-                    Forms\Components\TextInput::make('agent'),
-                ]),
+                    ->schema([
+                        Forms\Components\TextInput::make('erp_id')
+                            ->disabled(),
+                        Forms\Components\TextInput::make('business_name')
+                            ->required(),
+                        Forms\Components\TextInput::make('vat_number'),
+                        Forms\Components\TextInput::make('agent'),
+                    ]),
                 Forms\Components\Select::make('default_address')
                     ->relationship(name: 'addresses', titleAttribute: 'description')
                     ->createOptionForm([

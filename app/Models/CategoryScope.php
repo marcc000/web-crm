@@ -29,6 +29,6 @@ class CategoryScope extends Model
 
     public function categoryScope(): HasMany
     {
-        return $this->hasMany(Category::class,'category_scope','key');
+        return $this->hasMany(Category::class, 'category_scope', 'key');
     }
 }

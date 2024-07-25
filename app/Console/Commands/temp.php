@@ -2,15 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\Implementations\Erp\ErpConnectorImpl;
 use App\Jobs\ErpSync\FetchCaps;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Bus;
+use App\Jobs\ErpSync\FetchCategories;
+use App\Jobs\ErpSync\FetchCategoryScopes;
 use App\Jobs\ErpSync\FetchCountries;
 use App\Jobs\ErpSync\FetchCustomers;
 use App\Jobs\ErpSync\FetchProvinces;
-use App\Jobs\ErpSync\FetchCategories;
-use App\Jobs\ErpSync\FetchCategoryScopes;
-use App\Implementations\Erp\ErpConnectorImpl;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Bus;
 
 class temp extends Command
 {

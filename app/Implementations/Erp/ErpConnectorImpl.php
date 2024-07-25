@@ -20,7 +20,7 @@ class ErpConnectorImpl
      */
     public function __construct()
     {
-        $this->soapWrapper = new SoapWrapper();
+        $this->soapWrapper = new SoapWrapper;
         $this->soapWrapper->add('X3', function ($service) {
             $service
                 ->wsdl('http://172.28.1.92:8124/soap-wsdl/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC?wsdl')

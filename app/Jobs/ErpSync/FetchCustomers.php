@@ -3,20 +3,17 @@
 namespace App\Jobs\ErpSync;
 
 use App\Models\Customer;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 
 class FetchCustomers implements ShouldQueue
 {
     use Queueable;
 
-     /**
+    /**
      * The number of tries before failing the job.
      *
      * @var int
@@ -56,7 +53,7 @@ class FetchCustomers implements ShouldQueue
     {
         $query = DB::connection('erp')
             ->table('BPCUSTOMER AS BPC')
-            ->leftJoin('BPARTNER AS BPR','BPC.BPCNUM_0','=','BPR.BPRNUM_0')
+            ->leftJoin('BPARTNER AS BPR', 'BPC.BPCNUM_0', '=', 'BPR.BPRNUM_0')
             ->leftJoin('BPADDRESS AS BPA', function ($join) {
                 $join->on('BPA.BPANUM_0', '=', 'BPC.BPCNUM_0');
                 $join->where('BPA.BPAADD_0', '=', '000');
