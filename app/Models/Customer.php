@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -29,11 +31,10 @@ class Customer extends Model
         'erp_id',
         'business_name',
         'vat_number',
-        'tax_id',
         'PEC',
-        'default_address_id',
-        'default_contact_id',
-        'active',
+        'default_address',
+        'default_delivery_address',
+        'default_contact',
         'exported',
         'price_list',
         'product_category',
@@ -41,13 +42,14 @@ class Customer extends Model
         'channel',
         'seasonality',
         'payment_method',
-        'partner_id',
-        'default_delivery_address_id',
     ];
 
+    /**
+     * Get the addresses owned by the customer.
+     */
     public function addresses(): HasMany
     {
-        return $this->HasMany(Address::class);
+        return $this->hasMany(Address::class);
     }
 
     /**
@@ -56,14 +58,6 @@ class Customer extends Model
     public function mainAddress(): HasOne
     {
         return $this->hasOne(Address::class);
-    }
-
-    /**
-     * Get the postal info of the address.
-     */
-    public function cap(): HasOne
-    {
-        return $this->HasOne(Cap::class);
     }
 
     /**

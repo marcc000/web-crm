@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CustomerResource extends Resource
 {
@@ -22,11 +23,15 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('business_name')
-                    ->required(),
-                Forms\Components\TextInput::make('vat_number'),
-                Forms\Components\TextInput::make('tax_id'),
-                Forms\Components\TextInput::make('agent'),
+                Forms\Components\Fieldset::make('Identity')
+                    ->schema([
+                        Forms\Components\TextInput::make('erp_id')
+                            ->disabled(),
+                        Forms\Components\TextInput::make('business_name')
+                            ->required(),
+                        Forms\Components\TextInput::make('vat_number'),
+                        Forms\Components\TextInput::make('agent'),
+                    ]),
                 Forms\Components\Select::make('default_address')
                     ->relationship(name: 'addresses', titleAttribute: 'description')
                     ->createOptionForm([
@@ -46,8 +51,13 @@ class CustomerResource extends Resource
                     ->options(Category::getSalesCategories()->pluck('description'))
                     ->searchable(),
                 Forms\Components\Select::make('channel')
-                    ->options(Category::getChannels()->pluck('description'))
-                    ->searchable(),
+                    ->relationship(
+                        name: 'channel',
+                        modifyQueryUsing: fn (Builder $query) => $query->where('category_scope', '33'),
+                    )
+                    ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->key} - {$record->description}")
+                    ->searchable()
+                    ->preload(),
                 Forms\Components\Select::make('seasonality')
                     ->options(Category::getSeasonalities()->pluck('description'))
                     ->searchable(),
@@ -59,7 +69,9 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('erp_id')->searchable(),
+                Tables\Columns\TextColumn::make('business_name')->searchable(),
+                Tables\Columns\TextColumn::make('vat_number')->searchable(),
             ])
             ->filters([
                 //

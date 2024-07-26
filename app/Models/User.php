@@ -74,6 +74,6 @@ class User extends Authenticatable
      */
     public function zones(): HasMany
     {
-        return $this->hasMany(AgentZone::class);
+        return $this->hasMany(AgentZone::class, 'agent_id', 'erp_id');
     }
 }
