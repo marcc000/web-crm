@@ -47,7 +47,7 @@ class Customer extends Model
      */
     public function addresses(): HasMany
     {
-        return $this->hasMany(Address::class);
+        return $this->hasMany(Address::class,'customer_id','erp_id');
     }
 
     /**

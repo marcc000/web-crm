@@ -27,7 +27,13 @@ class AddressesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('description')
             ->columns([
+                Tables\Columns\TextColumn::make('erp_id'),
                 Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('signboard'),
+                Tables\Columns\TextColumn::make('address'),
+                Tables\Columns\TextColumn::make('city'),
+                Tables\Columns\TextColumn::make('cap'),
+                Tables\Columns\TextColumn::make('province'),
             ])
             ->filters([
                 //

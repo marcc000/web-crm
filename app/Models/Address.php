@@ -30,6 +30,7 @@ class Address extends Model
         'address',
         'description',
         'cap',
+        'city',
         'province',
         'country',
         'customer_id',

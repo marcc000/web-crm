@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cap', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->string('code');
             $table->string('city');
             $table->string('province');
             $table->timestamps();
