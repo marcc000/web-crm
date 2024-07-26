@@ -27,10 +27,57 @@ class CustomerResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('erp_id')
                             ->disabled(),
-                        Forms\Components\TextInput::make('business_name')
-                            ->required(),
+                        Forms\Components\TextInput::make('business_name'),
                         Forms\Components\TextInput::make('vat_number'),
                         Forms\Components\TextInput::make('agent'),
+                    ]),
+                Forms\Components\Fieldset::make('Categories')
+                    ->schema([
+                        Forms\Components\Select::make('price_list')
+                        ->label('Listino')
+                        ->relationship(
+                            'priceList',
+                            'description',
+                            fn (Builder $query) => $query->where('category_scope', '30')->whereIn('key', ['1', '2', '10']),
+                        )
+                            ->searchable()
+                            ->preload(),
+                        Forms\Components\Select::make('product_category')
+                        ->label('Categoria Merceologica')
+                        ->relationship(
+                            'productCategory',
+                            'description',
+                            fn (Builder $query) => $query->where('category_scope', '31'),
+                        )
+                        ->searchable()
+                        ->preload(),
+                        Forms\Components\Select::make('sales_category')
+                        ->label('Categoria di vendita')
+                        ->relationship(
+                            'salesCategory',
+                            'description',
+                            fn (Builder $query) => $query->where('category_scope', '32'),
+                        )
+                        ->searchable()
+                        ->preload(),
+                        Forms\Components\Select::make('channel')
+                        ->label('Canale')
+                        ->relationship(
+                            'channel',
+                            'description',
+                            fn (Builder $query) => $query->where('category_scope', '33'),
+                        )
+                        ->searchable()
+                        ->preload(),
+                        Forms\Components\Select::make('seasonality')
+                        ->label('Stagionalità')
+                        ->relationship(
+                            'seasonality',
+                            'description',
+                            fn (Builder $query) => $query->where('category_scope', '34'),
+                        )
+                        ->searchable()
+                        ->preload(),
                     ]),
                 Forms\Components\Select::make('default_address')
                     ->relationship(name: 'addresses', titleAttribute: 'description')
@@ -41,26 +88,7 @@ class CustomerResource extends Resource
                             ->required(),
                     ]),
                 Forms\Components\TextInput::make('default_contact'),
-                Forms\Components\Select::make('price_list')
-                    ->options(Category::getPriceLists()->pluck('description'))
-                    ->searchable(),
-                Forms\Components\Select::make('product_category')
-                    ->options(Category::getProductCategories()->pluck('description'))
-                    ->searchable(),
-                Forms\Components\Select::make('sales_category')
-                    ->options(Category::getSalesCategories()->pluck('description'))
-                    ->searchable(),
-                Forms\Components\Select::make('channel')
-                    ->relationship(
-                        name: 'channel',
-                        modifyQueryUsing: fn (Builder $query) => $query->where('category_scope', '33'),
-                    )
-                    ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->key} - {$record->description}")
-                    ->searchable()
-                    ->preload(),
-                Forms\Components\Select::make('seasonality')
-                    ->options(Category::getSeasonalities()->pluck('description'))
-                    ->searchable(),
+                
                 Forms\Components\Select::make('payment_method'),
             ]);
     }

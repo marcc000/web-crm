@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Customer extends Model
@@ -69,32 +70,40 @@ class Customer extends Model
     /**
      * Get the sales channel.
      */
-    public function channel(): HasOne
+    public function channel(): BelongsTo
     {
-        return $this->hasOne(Category::class, localKey: 'channel');
+        return $this->belongsTo(Category::class,'channel', 'key');
+    }
+
+    /**
+     * Get the pricelist.
+     */
+    public function priceList(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'price_list', 'key');
     }
 
     /**
      * Get the seasonality.
      */
-    public function seasonality(): HasOne
+    public function seasonality(): BelongsTo
     {
-        return $this->hasOne(Category::class, localKey: 'seasonality');
+        return $this->belongsTo(Category::class, 'seasonality', 'key');
     }
 
     /**
      * Get the product category.
      */
-    public function productCategory(): HasOne
+    public function productCategory(): BelongsTo
     {
-        return $this->hasOne(Category::class, localKey: 'product_category');
+        return $this->belongsTo(Category::class, 'product_category', 'key');
     }
 
     /**
      * Get the sales category.
      */
-    public function salesCategory(): HasOne
+    public function salesCategory(): BelongsTo
     {
-        return $this->hasOne(Category::class, localKey: 'sales_category');
+        return $this->belongsTo(Category::class, 'sales_category', 'key');
     }
 }
