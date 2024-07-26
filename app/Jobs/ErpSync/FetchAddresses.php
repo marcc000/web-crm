@@ -3,14 +3,11 @@
 namespace App\Jobs\ErpSync;
 
 use App\Models\Address;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 
 class FetchAddresses implements ShouldQueue
 {
@@ -55,17 +52,17 @@ class FetchAddresses implements ShouldQueue
     public function handle(): void
     {
         $query = DB::connection('erp')
-        ->table('BPADDRESS AS BPA')
-        ->select(
-            'BPA.BPANUM_0 as customer_id',
-            'BPA.BPAADD_0 as erp_id',
-            'BPA.BPADES_0 as description',
-            'BPA.BPAADDLIG_0 as address',
-            'BPA.POSCOD_0 as cap',
-            'BPA.CTY_0 as city',
-            'BPA.SAT_0 as province',
-            'BPA.CRY_0 as country',
-        );
+            ->table('BPADDRESS AS BPA')
+            ->select(
+                'BPA.BPANUM_0 as customer_id',
+                'BPA.BPAADD_0 as erp_id',
+                'BPA.BPADES_0 as description',
+                'BPA.BPAADDLIG_0 as address',
+                'BPA.POSCOD_0 as cap',
+                'BPA.CTY_0 as city',
+                'BPA.SAT_0 as province',
+                'BPA.CRY_0 as country',
+            );
 
         if ($this->fetchMode == 'fresh') {
             $query->where(
@@ -75,11 +72,11 @@ class FetchAddresses implements ShouldQueue
             );
         }
 
-        Log::debug('Fetching Addresses with "' . $this->fetchMode . '" mode.');
+        Log::debug('Fetching Addresses with "'.$this->fetchMode.'" mode.');
 
         $addresses = $query->get();
 
-        Log::debug('Fetched ' . $addresses->count() . ' records.');
+        Log::debug('Fetched '.$addresses->count().' records.');
 
         foreach ($addresses as $address) {
             Address::upsert(

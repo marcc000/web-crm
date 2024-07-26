@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
-use App\Models\Category;
 use App\Models\Customer;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -34,50 +33,50 @@ class CustomerResource extends Resource
                 Forms\Components\Fieldset::make('Categories')
                     ->schema([
                         Forms\Components\Select::make('price_list')
-                        ->label('Listino')
-                        ->relationship(
-                            'priceList',
-                            'description',
-                            fn (Builder $query) => $query->where('category_scope', '30')->whereIn('key', ['1', '2', '10']),
-                        )
+                            ->label('Listino')
+                            ->relationship(
+                                'priceList',
+                                'description',
+                                fn (Builder $query) => $query->where('category_scope', '30')->whereIn('key', ['1', '2', '10']),
+                            )
                             ->searchable()
                             ->preload(),
                         Forms\Components\Select::make('product_category')
-                        ->label('Categoria Merceologica')
-                        ->relationship(
-                            'productCategory',
-                            'description',
-                            fn (Builder $query) => $query->where('category_scope', '31'),
-                        )
-                        ->searchable()
-                        ->preload(),
+                            ->label('Categoria Merceologica')
+                            ->relationship(
+                                'productCategory',
+                                'description',
+                                fn (Builder $query) => $query->where('category_scope', '31'),
+                            )
+                            ->searchable()
+                            ->preload(),
                         Forms\Components\Select::make('sales_category')
-                        ->label('Categoria di vendita')
-                        ->relationship(
-                            'salesCategory',
-                            'description',
-                            fn (Builder $query) => $query->where('category_scope', '32'),
-                        )
-                        ->searchable()
-                        ->preload(),
+                            ->label('Categoria di vendita')
+                            ->relationship(
+                                'salesCategory',
+                                'description',
+                                fn (Builder $query) => $query->where('category_scope', '32'),
+                            )
+                            ->searchable()
+                            ->preload(),
                         Forms\Components\Select::make('channel')
-                        ->label('Canale')
-                        ->relationship(
-                            'channel',
-                            'description',
-                            fn (Builder $query) => $query->where('category_scope', '33'),
-                        )
-                        ->searchable()
-                        ->preload(),
+                            ->label('Canale')
+                            ->relationship(
+                                'channel',
+                                'description',
+                                fn (Builder $query) => $query->where('category_scope', '33'),
+                            )
+                            ->searchable()
+                            ->preload(),
                         Forms\Components\Select::make('seasonality')
-                        ->label('Stagionalità')
-                        ->relationship(
-                            'seasonality',
-                            'description',
-                            fn (Builder $query) => $query->where('category_scope', '34'),
-                        )
-                        ->searchable()
-                        ->preload(),
+                            ->label('Stagionalità')
+                            ->relationship(
+                                'seasonality',
+                                'description',
+                                fn (Builder $query) => $query->where('category_scope', '34'),
+                            )
+                            ->searchable()
+                            ->preload(),
                     ]),
                 Forms\Components\Select::make('default_address')
                     ->relationship(name: 'addresses', titleAttribute: 'description')
@@ -88,7 +87,7 @@ class CustomerResource extends Resource
                             ->required(),
                     ]),
                 Forms\Components\TextInput::make('default_contact'),
-                
+
                 Forms\Components\Select::make('payment_method'),
             ]);
     }

@@ -2,14 +2,14 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use App\Models\User;
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Hash;
 use App\Filament\Resources\UserResource\Pages;
+use App\Models\User;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -36,7 +36,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('erp_id'),
                 Forms\Components\Select::make('roles')
                     ->multiple()
-                    ->relationship('roles','name')
+                    ->relationship('roles', 'name')
                     ->preload(),
             ]);
     }
@@ -50,7 +50,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('roles.name')
                     ->badge()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('erp_id')
+                Tables\Columns\TextColumn::make('erp_id'),
             ])
             ->filters([
                 //
