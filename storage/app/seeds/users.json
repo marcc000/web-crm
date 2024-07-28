@@ -1,0 +1,9 @@
+[
+    {
+        "name" : "ced",
+        "email" : "ced@dulca.com",
+        "password" : "ced",
+        "erp_id" : "D037",
+        "roles" : ["super_admin"]
+    }
+]
