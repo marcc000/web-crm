@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('agent_id');
             $table->timestamps();
             $table->softDeletes();
+            $table->unique(['zone_id', 'agent_id']);
         });
     }
 

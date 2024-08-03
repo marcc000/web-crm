@@ -25,7 +25,7 @@ class AgentZone extends Model
      * @var array
      */
     protected $fillable = [
-        'erp_id',
+        'zone_id',
         'agent_id',
     ];
 
@@ -34,6 +34,6 @@ class AgentZone extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'erp_id','agent_id');
     }
 }
