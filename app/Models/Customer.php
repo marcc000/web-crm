@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Customer extends Model
 {
@@ -34,6 +35,7 @@ class Customer extends Model
         'default_address',
         'default_delivery_address',
         'default_contact',
+        'zone',
         'exported',
         'price_list',
         'product_category',
@@ -65,6 +67,14 @@ class Customer extends Model
     public function defaultDeliveryAddress(): HasOne
     {
         return $this->hasOne(Address::class);
+    }
+
+    /**
+     * The zones that own the customer.
+     */
+    public function zones(): BelongsToMany
+    {
+        return $this->belongsToMany(AgentZone::class,'customer_zone');
     }
 
     /**

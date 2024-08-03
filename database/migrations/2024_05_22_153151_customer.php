@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('PEC')->nullable();
             $table->string('default_address')->nullable();
             $table->string('default_contact')->nullable();
+            $table->string('zone')->nullable();
             $table->boolean('exported')->nullable();
             $table->string('price_list')->nullable();
             $table->string('product_category')->nullable();
