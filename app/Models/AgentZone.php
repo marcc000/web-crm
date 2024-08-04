@@ -34,6 +34,6 @@ class AgentZone extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class,'erp_id','agent_id');
+        return $this->belongsTo(User::class, 'erp_id', 'agent_id');
     }
 }
