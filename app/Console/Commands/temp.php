@@ -10,6 +10,7 @@ use App\Jobs\ErpSync\FetchCategories;
 use App\Jobs\ErpSync\FetchCategoryScopes;
 use App\Jobs\ErpSync\FetchCountries;
 use App\Jobs\ErpSync\FetchCustomers;
+use App\Jobs\ErpSync\FetchCustomerZones;
 use App\Jobs\ErpSync\FetchProvinces;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
@@ -47,6 +48,7 @@ class temp extends Command
             new FetchCustomers('all'),
             new FetchAddresses('all'),
             new FetchAgentZones('all'),
+            new FetchCustomerZones('all'),
         ])->dispatch();
     }
 }
