@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Implementations\Erp\ErpConnectorImpl;
 use App\Jobs\ErpSync\FetchAddresses;
+use App\Jobs\ErpSync\FetchAgents;
 use App\Jobs\ErpSync\FetchAgentZones;
 use App\Jobs\ErpSync\FetchCaps;
 use App\Jobs\ErpSync\FetchCategories;
@@ -47,6 +48,7 @@ class temp extends Command
             new FetchCaps('all'),
             new FetchCustomers('all'),
             new FetchAddresses('all'),
+            new FetchAgents('all'),
             new FetchAgentZones('all'),
             new FetchCustomerZones('all'),
         ])->dispatch();

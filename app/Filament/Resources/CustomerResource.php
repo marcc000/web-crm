@@ -2,35 +2,48 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms;
+use Filament\Tables;
+use App\Models\Customer;
+use Filament\Forms\Form;
+use App\Models\AgentZone;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
-use App\Models\Customer;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class CustomerResource extends Resource
 {
     protected static ?string $model = Customer::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Fieldset::make('Identity')
+                Forms\Components\Section::make()
+                    ->columns(3)
                     ->schema([
                         Forms\Components\TextInput::make('erp_id')
-                            ->disabled(),
-                        Forms\Components\TextInput::make('business_name'),
-                        Forms\Components\TextInput::make('vat_number'),
-                        Forms\Components\TextInput::make('agent'),
+                            ->label('Codice')
+                            ->readOnly(),
+                        Forms\Components\TextInput::make('business_name')
+                            ->label('Ragione Sociale'),
+                        Forms\Components\TextInput::make('vat_number')
+                            ->label('P.IVA'),
+                        Forms\Components\Select::make('zone')
+                            ->label('Agente')
+                            ->relationship('zone')
+                            ->searchable()
+                            ->preload()
+                            ->getOptionLabelFromRecordUsing(fn (AgentZone $record) => "{$record->zone_id} - {$record->agent->name}"),
+                        Forms\Components\Checkbox::make('exported')
+                            ->label('Exp su SFA'),
                     ]),
-                Forms\Components\Fieldset::make('Categories')
+                Forms\Components\Section::make()
+                    ->columns(3)
                     ->schema([
                         Forms\Components\Select::make('price_list')
                             ->label('Listino')
@@ -78,17 +91,18 @@ class CustomerResource extends Resource
                             ->searchable()
                             ->preload(),
                     ]),
-                Forms\Components\Select::make('default_address')
-                    ->relationship(name: 'addresses', titleAttribute: 'description')
-                    ->createOptionForm([
-                        Forms\Components\TextInput::make('id')
-                            ->required(),
-                        Forms\Components\TextInput::make('description')
-                            ->required(),
+                Forms\Components\Section::make()
+                    ->columns(3)
+                    ->schema([
+                        Forms\Components\Select::make('default_address')
+                            ->relationship(name: 'addresses', titleAttribute: 'description')
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('id')
+                                    ->required(),
+                                Forms\Components\TextInput::make('description')
+                                    ->required(),
+                            ]),
                     ]),
-                Forms\Components\TextInput::make('default_contact'),
-
-                Forms\Components\Select::make('payment_method'),
             ]);
     }
 

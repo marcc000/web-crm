@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Customer extends Model
 {
@@ -46,6 +46,18 @@ class Customer extends Model
     ];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'exported' => 'boolean',
+        ];
+    }
+
+    /**
      * Get the addresses owned by the customer.
      */
     public function addresses(): HasMany
@@ -75,6 +87,14 @@ class Customer extends Model
     public function zones(): BelongsToMany
     {
         return $this->belongsToMany(AgentZone::class, 'customer_zone');
+    }
+
+    /**
+     * Get the main agent zone.
+     */
+    public function zone(): BelongsTo
+    {
+        return $this->belongsTo(AgentZone::class, 'zone', 'zone_id');
     }
 
     /**

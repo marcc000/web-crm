@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('customer_zone', function (Blueprint $table) {
             $table->id();
-            $table->string('zone_id');
-            $table->string('customer_id');
+            $table->string('zone_id')->nullable();
+            $table->string('customer_id')->nullable();
             $table->timestamps();
             $table->unique(['zone_id', 'customer_id']);
         });

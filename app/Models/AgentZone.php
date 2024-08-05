@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AgentZone extends Model
 {
@@ -30,10 +31,10 @@ class AgentZone extends Model
     ];
 
     /**
-     * Get the owner(user) of the zone.
+     * Get the agent of the zone.
      */
-    public function owner(): BelongsTo
+    public function agent(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'erp_id', 'agent_id');
+        return $this->belongsTo(Agent::class, 'zone_id', 'zone');
     }
 }

@@ -2,15 +2,17 @@
 
 namespace App\Jobs\ErpSync;
 
-use App\Models\AgentZone;
-use Illuminate\Support\Str;
+use App\Models\Agent;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 
-class FetchAgentZones implements ShouldQueue
+class FetchAgents implements ShouldQueue
 {
     use Queueable;
 
@@ -53,37 +55,40 @@ class FetchAgentZones implements ShouldQueue
     public function handle(): void
     {
         $query = DB::connection('erp')
-            ->table('SALESREP AS REP')
+            ->table('SALESREP AS REP1')
+            ->join('SALESREP AS REP2','REP1.REPNUM_0','=','REP2.YREPNUM_0')
             ->select(
-                'REP.REPNUM_0 as zone_id',
-                'REP.YREPNUM_0 as agent_id',
+                'REP1.REPNUM_0 as agent_id',
+                'REP1.REPNAM_0 as name',
+                'REP2.REPNUM_0 as zone',
             )
-            ->where('YTYPREP_0', '2')
-            ->whereNotNull('REP.YREPNUM_0');
+            ->where('REP1.YTYPREP_0', '1')
+            ->orderBy('REP1.REPNUM_0');
 
         if ($this->fetchMode == 'fresh') {
             $query->where(
-                'REP.UPDDATTIM_0',
+                'REP1.UPDDATTIM_0',
                 '>=',
                 Carbon::now()->subMinutes($this->freshTimeOffset)->toDateTimeString()
             );
         }
 
-        Log::debug('Fetching Agent Zones with "'.$this->fetchMode.'" mode.');
+        Log::debug('Fetching Agents with "'.$this->fetchMode.'" mode.');
 
-        $zones = $query->get();
+        $agents = $query->get();
 
-        Log::debug('Fetched '.$zones->count().' records.');
+        Log::debug('Fetched '.$agents->count().' records.');
 
-        foreach ($zones as $zone) {
-            AgentZone::upsert(
+        foreach ($agents as $agent) {
+            Agent::upsert(
                 [
-                    'zone_id' => $zone->zone_id,
-                    'agent_id' => $zone->agent_id,
+                    'agent_id' => $agent->agent_id,
+                    'zone' => $agent->zone,
+                    'name' => $agent->name,
                 ],
                 [
-                    'zone_id',
                     'agent_id',
+                    'zone',
                 ]
             );
         }

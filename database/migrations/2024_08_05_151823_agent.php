@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agent_zone', function (Blueprint $table) {
+        Schema::create('agent', function (Blueprint $table) {
             $table->id();
-            $table->string('zone_id')->nullable();
             $table->string('agent_id')->nullable();
+            $table->string('zone')->nullable()->unique();
+            $table->string('name')->nullable();
             $table->timestamps();
-            $table->softDeletes();
-            $table->unique(['zone_id', 'agent_id']);
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agent_zone');
+        Schema::dropIfExists('agent');
     }
 };
