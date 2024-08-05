@@ -29,6 +29,7 @@ class Address extends Model
         'erp_id',
         'address',
         'description',
+        'signboard',
         'cap',
         'city',
         'province',

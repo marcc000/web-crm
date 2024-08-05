@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\Address;
 use App\Models\Customer;
 use Filament\Forms\Form;
 use App\Models\AgentZone;
@@ -92,10 +93,61 @@ class CustomerResource extends Resource
                             ->preload(),
                     ]),
                 Forms\Components\Section::make()
-                    ->columns(3)
+                    ->columns(2)
                     ->schema([
                         Forms\Components\Select::make('default_address')
-                            ->relationship(name: 'addresses', titleAttribute: 'description')
+                            ->label('Indirizzo di fatturazione')
+                            ->relationship(
+                                'addresses',
+                                'description',
+                                fn (Builder $query, ?Customer $record) => $query->where('customer_id', $record->erp_id ?? ''),)
+                            ->getOptionLabelFromRecordUsing(fn (Address $record) => "{$record->erp_id} - {$record->description} : [{$record->signboard}] {$record->address} {$record->city}")
+                            ->createOptionForm([
+                                Forms\Components\Section::make()
+                                    ->columns(3)
+                                    ->schema([
+                                        Forms\Components\TextInput::make('address')
+                                            ->label('Indirizzo')
+                                            ->required(),
+                                        Forms\Components\TextInput::make('description')
+                                            ->label('Descrizione')
+                                            ->required(),
+                                        Forms\Components\TextInput::make('signboard')
+                                            ->label('Insegna locale')
+                                            ->required(),
+                                        Forms\Components\Select::make('country')
+                                            ->label('Paese')
+                                            ->relationship(
+                                                'country',
+                                                'name',
+                                            )
+                                            ->searchable()
+                                            ->preload(),
+                                        Forms\Components\Select::make('province')
+                                            ->label('Provincia')
+                                            ->relationship(
+                                                'province',
+                                                'name',
+                                            )
+                                            ->searchable()
+                                            ->preload(),
+                                        Forms\Components\Select::make('cap')
+                                            ->label('CAP')
+                                            ->relationship(
+                                                'cap',
+                                                'code',
+                                            )
+                                            ->searchable()
+                                            ->preload(),
+                                    ])
+                            ]),
+                        Forms\Components\Select::make('default_delivery_address')
+                            ->label('Destinazione merce principale')
+                            ->relationship(
+                                'addresses',
+                                'description',
+                                fn (Builder $query, ?Customer $record) => $query->where('customer_id', $record->erp_id ?? ''),)
+                            ->getOptionLabelFromRecordUsing(fn (Address $record) => "{$record->erp_id} - {$record->description} : {$record->address} {$record->city}")
                             ->createOptionForm([
                                 Forms\Components\TextInput::make('id')
                                     ->required(),
