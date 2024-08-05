@@ -3,12 +3,11 @@
 namespace App\Jobs\ErpSync;
 
 use App\Models\AgentZone;
-use Illuminate\Support\Str;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class FetchAgentZones implements ShouldQueue
 {

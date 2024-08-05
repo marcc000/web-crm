@@ -3,14 +3,11 @@
 namespace App\Jobs\ErpSync;
 
 use App\Models\Agent;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 
 class FetchAgents implements ShouldQueue
 {
@@ -56,7 +53,7 @@ class FetchAgents implements ShouldQueue
     {
         $query = DB::connection('erp')
             ->table('SALESREP AS REP1')
-            ->join('SALESREP AS REP2','REP1.REPNUM_0','=','REP2.YREPNUM_0')
+            ->join('SALESREP AS REP2', 'REP1.REPNUM_0', '=', 'REP2.YREPNUM_0')
             ->select(
                 'REP1.REPNUM_0 as agent_id',
                 'REP1.REPNAM_0 as name',

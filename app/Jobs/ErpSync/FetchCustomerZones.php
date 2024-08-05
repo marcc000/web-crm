@@ -2,14 +2,11 @@
 
 namespace App\Jobs\ErpSync;
 
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 
 class FetchCustomerZones implements ShouldQueue
 {
@@ -60,7 +57,7 @@ class FetchCustomerZones implements ShouldQueue
                 'YREP.REP2_0 as zone_id',
             )
             ->distinct()
-            ->where('YREP.REP2_0','!=','ZZ');
+            ->where('YREP.REP2_0', '!=', 'ZZ');
 
         if ($this->fetchMode == 'fresh') {
             $query->where(

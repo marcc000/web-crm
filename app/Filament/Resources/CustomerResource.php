@@ -2,17 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Address;
-use App\Models\Customer;
-use Filament\Forms\Form;
-use App\Models\AgentZone;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
+use App\Models\Address;
+use App\Models\AgentZone;
+use App\Models\Customer;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CustomerResource extends Resource
 {
@@ -100,7 +100,7 @@ class CustomerResource extends Resource
                             ->relationship(
                                 'addresses',
                                 'description',
-                                fn (Builder $query, ?Customer $record) => $query->where('customer_id', $record->erp_id ?? ''),)
+                                fn (Builder $query, ?Customer $record) => $query->where('customer_id', $record->erp_id ?? ''), )
                             ->getOptionLabelFromRecordUsing(fn (Address $record) => "{$record->erp_id} - {$record->description} : [{$record->signboard}] {$record->address} {$record->city}")
                             ->createOptionForm([
                                 Forms\Components\Section::make()
@@ -139,14 +139,14 @@ class CustomerResource extends Resource
                                             )
                                             ->searchable()
                                             ->preload(),
-                                    ])
+                                    ]),
                             ]),
                         Forms\Components\Select::make('default_delivery_address')
                             ->label('Destinazione merce principale')
                             ->relationship(
                                 'addresses',
                                 'description',
-                                fn (Builder $query, ?Customer $record) => $query->where('customer_id', $record->erp_id ?? ''),)
+                                fn (Builder $query, ?Customer $record) => $query->where('customer_id', $record->erp_id ?? ''), )
                             ->getOptionLabelFromRecordUsing(fn (Address $record) => "{$record->erp_id} - {$record->description} : {$record->address} {$record->city}")
                             ->createOptionForm([
                                 Forms\Components\TextInput::make('id')

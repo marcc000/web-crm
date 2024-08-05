@@ -28,7 +28,7 @@ class Agent extends Model
         'name',
     ];
 
-     /**
+    /**
      * Get the zones of the agent.
      */
     public function zones(): HasMany
